@@ -1,5 +1,6 @@
 package file_io;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -16,11 +17,39 @@ class Employee{
 
     @Override
     public String toString() {
-        return "{ID: "+id+" ,NAME: "+name+" ,SALARY: "+salary+"}";
+        return "Employee [Name: " + name + ", ID: " + id + ", Salary: " + salary +"]";
     }
 }
 
 public class EmployeePayIO {
+
+    public static void writeEmployeeToFile(ArrayList<Employee> emps) {
+//        PrintWriter pw = new PrintWriter("/Users/topb/Desktop/Core-Java/src/file_io/emp_db.txt");
+//        for (Employee e : emps){
+//            pw.println("Employee [Name: " + e.name + ", ID: " + e.id + ", Salary: " + e.salary +"]");
+//        }
+
+        try (PrintWriter writer = new PrintWriter("/Users/topb/Desktop/Core-Java/src/file_io/emp_db.txt")) {
+            for (Employee employee : emps) {
+                writer.println(employee.toString());
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred: " + e.getMessage());
+        }
+
+    }
+
+    public static int countRecords() throws IOException {
+        FileReader f = new FileReader("/Users/topb/Desktop/Core-Java/src/file_io/emp_db.txt");
+        BufferedReader br  = new BufferedReader(f);
+        String line = br.readLine();
+        int count =0;
+        while(line!=null){
+            count++;
+            line = br.readLine();
+        }
+        return count;
+    }
 
     public static void printEmployeeToConsole(ArrayList<Employee> emps){
         System.out.println("AlL Employees In Our Organization");
@@ -29,7 +58,7 @@ public class EmployeePayIO {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         int id = 0;
         String name = null;
         double salary = 0;
@@ -58,5 +87,9 @@ public class EmployeePayIO {
             }
         }
         printEmployeeToConsole(emps);
+        writeEmployeeToFile(emps);
+        System.out.println("All Employee Records have been written to file");
+        int recordCount = countRecords();
+        System.out.println("Total of "+recordCount+" employees are working in company right now");
     }
 }
