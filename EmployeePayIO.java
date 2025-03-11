@@ -24,11 +24,6 @@ class Employee{
 public class EmployeePayIO {
 
     public static void writeEmployeeToFile(ArrayList<Employee> emps) {
-//        PrintWriter pw = new PrintWriter("/Users/topb/Desktop/Core-Java/src/file_io/emp_db.txt");
-//        for (Employee e : emps){
-//            pw.println("Employee [Name: " + e.name + ", ID: " + e.id + ", Salary: " + e.salary +"]");
-//        }
-
         try (PrintWriter writer = new PrintWriter("/Users/topb/Desktop/Core-Java/src/file_io/emp_db.txt")) {
             for (Employee employee : emps) {
                 writer.println(employee.toString());
@@ -36,7 +31,6 @@ public class EmployeePayIO {
         } catch (IOException e) {
             System.out.println("An error occurred: " + e.getMessage());
         }
-
     }
 
     public static int countRecords() throws IOException {
@@ -56,6 +50,19 @@ public class EmployeePayIO {
         for(Employee e : emps){
             System.out.println(e);
         }
+    }
+
+    public static void printEmpFromFile() throws IOException {
+        FileReader f = new FileReader("/Users/topb/Desktop/Core-Java/src/file_io/emp_db.txt");
+        BufferedReader br  = new BufferedReader(f);
+        String line = br.readLine();
+        int count =0;
+        while(line!=null){
+            count++;
+            System.out.println(line);
+            line = br.readLine();
+        }
+        System.out.println("Total of "+count+" employees are in company");
     }
 
     public static void main(String[] args) throws IOException {
@@ -86,10 +93,8 @@ public class EmployeePayIO {
                 flag = false;
             }
         }
-        printEmployeeToConsole(emps);
         writeEmployeeToFile(emps);
         System.out.println("All Employee Records have been written to file");
-        int recordCount = countRecords();
-        System.out.println("Total of "+recordCount+" employees are working in company right now");
+        printEmpFromFile();
     }
 }

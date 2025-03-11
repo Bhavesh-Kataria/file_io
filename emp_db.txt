@@ -1,4 +1,4 @@
 Employee [Name: Bhavesh, ID: 1, Salary: 250000.0]
-Employee [Name: Sahil, ID: 2, Salary: 400000.0]
-Employee [Name: Rushikesh, ID: 3, Salary: 450000.0]
-Employee [Name: Rehan, ID: 4, Salary: 400000.0]
+Employee [Name: rushikesh, ID: 2, Salary: 400000.0]
+Employee [Name: Sahil, ID: 3, Salary: 350000.0]
+Employee [Name: Rehan, ID: 5, Salary: 300000.0]
